@@ -1,0 +1,5 @@
+rag:
+  docs_dir: docs
+  chunk_size: 800
+  chunk_overlap: 120
+  top_k: 5

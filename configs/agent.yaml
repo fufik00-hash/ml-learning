@@ -1,0 +1,4 @@
+agent:
+  max_steps: 8
+  allow_file_write: true
+  allow_code_execution: false

@@ -1,0 +1,16 @@
+numpy
+pandas
+matplotlib
+scikit-learn
+torch
+torchvision
+tqdm
+jupyter
+pytest
+pydantic
+fastapi
+uvicorn
+python-dotenv
+faiss-cpu
+sentence-transformers
+openai
