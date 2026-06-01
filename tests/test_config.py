@@ -5,24 +5,39 @@ from src.training.config import TrainConfig
 
 def test_default_config_is_valid():
     config = TrainConfig()
+
     assert config.learning_rate == 0.01
     assert config.epochs == 100
     assert config.batch_size == 32
+    assert config.seed == 42
+    assert config.validation_split == 0.2
+    assert config.log_every == 10
 
 
-def test_learning_rate_must_be_positive():
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("learning_rate", 0),
+        ("learning_rate", -0.01),
+        ("epochs", 0),
+        ("epochs", -1),
+        ("batch_size", 0),
+        ("batch_size", -1),
+        ("seed", -1),
+        ("validation_split", 0),
+        ("validation_split", 1),
+        ("validation_split", -0.1),
+        ("validation_split", 1.5),
+        ("log_every", 0),
+        ("log_every", -1),
+    ],
+)
+def test_invalid_config_values_raise_error(field, value):
+    kwargs = {field: value}
+
     with pytest.raises(ValueError):
-        TrainConfig(learning_rate=0)
+        TrainConfig(**kwargs)
 
-
-def test_epochs_must_be_positive():
-    with pytest.raises(ValueError):
-        TrainConfig(epochs=0)
-
-
-def test_batch_size_must_be_positive():
-    with pytest.raises(ValueError):
-        TrainConfig(batch_size=0)
 
 @pytest.mark.parametrize(
     "dataset_size,batch_size,expected_steps",
